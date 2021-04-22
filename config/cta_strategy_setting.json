@@ -1,0 +1,21 @@
+{
+	"test1": {
+		"class_name": "test1",
+		"vt_symbol": "y2105.DCE",
+		"setting": {
+			"class_name": "test1"
+		}
+	},
+
+	"test2": {
+		"class_name": "test2",
+		"vt_symbol": "T2103.CFFEX",
+		"setting": {
+			"fast_window": 5,
+			"slow_window": 10,
+			"x_min": 1,
+			"lots": 5,
+			"stoploss": 40
+		}
+	}
+}
