@@ -1,0 +1,13 @@
+{
+    "test": {
+        "class_name": "TestStrategy",
+        "vt_symbol": "ETH210924.HUOBI",
+        "setting": {
+            "fast_window": 5,
+            "slow_window": 10,
+            "x_min": 1,
+            "lots": 5,
+            "stoploss": 40
+        }
+    }
+}
