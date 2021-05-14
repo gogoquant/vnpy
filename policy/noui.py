@@ -54,7 +54,6 @@ def run():
     pdb.set_trace()
     cta_engine.init_engine()
     main_engine.write_log("策略初始化完成")
-    # test_strategy
 
     # pdb.set_trace()
     cta_engine.init_all_strategies()
