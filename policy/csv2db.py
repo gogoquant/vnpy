@@ -4,6 +4,7 @@ import pdb
 from vnpy.trader.database import database_manager
 from vnpy.trader.object import (BarData,TickData)
 import sys
+import datetime
 
 # 封装函数
 def move_df_to_mongodb(imported_data:pd.DataFrame,collection_name:str):
@@ -12,11 +13,11 @@ def move_df_to_mongodb(imported_data:pd.DataFrame,collection_name:str):
     count = 0
 
     for row in imported_data.itertuples():
-        
+        d = datetime.datetime.strptime(row.datetime, "%Y-%m-%d %H:%M:%S")
         bar = BarData(
               symbol=row.symbol,
               exchange=row.exchange,
-              datetime=row.datetime,
+              datetime=d,
               interval=row.interval,
               volume=row.volume,
               open_price=row.open,
@@ -60,11 +61,10 @@ if __name__ == "__main__":
     float_columns = ['开', '高', '低', '收', '成交量', '持仓量']
     for col in float_columns:
         imported_data[col] = imported_data[col].astype('float')
-    # 明确时间戳的格式
-    # %Y/%m/%d %H:%M:%S 代表着你的csv数据中的时间戳必须是 2020/05/01 08:32:30 格式
-    datetime_format = '%Y%m%d %H:%M:%S'
-    imported_data['时间'] = pd.to_datetime(imported_data['时间'], format=datetime_format)
+    imported_data['时间'] = imported_data['时间']
     # 因为没有用到 成交额 这一列的数据，所以该列列名不变
     imported_data.columns = ['exchange', 'symbol', 'datetime', 'open', 'high', 'low', 'close', 'volume', '成交额', 'open_interest', 'interval']
     imported_data['symbol'] = vt
+    
+    pdb.set_trace()
     move_df_to_mongodb(imported_data, ex)
