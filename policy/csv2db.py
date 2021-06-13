@@ -2,11 +2,10 @@ from vnpy.trader.constant import (Exchange, Interval)
 import pandas as pd
 import pdb
 from vnpy.trader.database import database_manager
-from vnpy.trader.object import (BarData,TickData)
-import sys
+from vnpy.trader.object import BarData
 import datetime
 
-# 封装函数
+
 def move_df_to_mongodb(imported_data:pd.DataFrame,collection_name:str):
     bars = []
     start = None
@@ -27,8 +26,6 @@ def move_df_to_mongodb(imported_data:pd.DataFrame,collection_name:str):
               open_interest=row.open_interest,
               gateway_name="DB",
         )
-
-
         bars.append(bar)
 
         # do some statistics
@@ -37,8 +34,7 @@ def move_df_to_mongodb(imported_data:pd.DataFrame,collection_name:str):
             start = bar.datetime
     end = bar.datetime
 
-
-    pdb.set_trace()
+    # pdb.set_trace()
     # insert into database
     database_manager.save_bar_data(bars)
     print(f'Insert Bar: {count} from {start} - {end}')
@@ -65,6 +61,5 @@ if __name__ == "__main__":
     # 因为没有用到 成交额 这一列的数据，所以该列列名不变
     imported_data.columns = ['exchange', 'symbol', 'datetime', 'open', 'high', 'low', 'close', 'volume', '成交额', 'open_interest', 'interval']
     imported_data['symbol'] = vt
-    
-    pdb.set_trace()
+    # pdb.set_trace()
     move_df_to_mongodb(imported_data, ex)
