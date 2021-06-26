@@ -53,7 +53,7 @@ if __name__ == "__main__":
     # 增加一列数据 `inteval`，且该列数据的所有值都是 Interval.MINUTE
     imported_data['interval'] = Interval.MINUTE
     # 明确需要是float数据类型的列
-    pdb.set_trace()
+    # pdb.set_trace()
     float_columns = ['开', '高', '低', '收', '成交量', '持仓量']
     for col in float_columns:
         imported_data[col] = imported_data[col].astype('float')
